@@ -104,7 +104,48 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/26/hello-world/" data-id="cjhoo7m0k00013kvji1pszng5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/26/hello-world/" data-id="cjhooww7x0001d4vjid0r5osh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-untitled-1527416368780-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/25/untitled-1527416368780-1/" class="article-date">
+  <time datetime="2018-05-25T10:20:52.000Z" itemprop="datePublished">2018-05-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/25/untitled-1527416368780-1/">Asp.Net Core 2 簡易 SignalR with Visual Studio (Visual Studio Code 適用)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1．開啟你的NuGet-並安裝套件-VSCode就開終端機"><a href="#1．開啟你的NuGet-並安裝套件-VSCode就開終端機" class="headerlink" title="1．開啟你的NuGet 並安裝套件 ( VSCode就開終端機 )"></a>1．開啟你的NuGet 並安裝套件 ( VSCode就開終端機 )</h2><h6 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio"></a>Visual Studio</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ Install-Package Microsoft.AspNetCore.SignalR -Version 1.0.0-preview2-final</span><br></pre></td></tr></table></figure>
+<h6 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dotnet add package Microsoft.AspNetCore.SignalR --version <span class="number">1</span>.<span class="number">0</span>.<span class="number">0</span>-rc1-final</span><br></pre></td></tr></table></figure>
+<h2 id="2．cd-到專案資料夾，並下指令"><a href="#2．cd-到專案資料夾，並下指令" class="headerlink" title="2．cd 到專案資料夾，並下指令"></a>2．cd 到專案資料夾，並下指令</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm init -y   //建立預設package.json</span><br><span class="line">npm install @aspnet/signalr  //安裝軟件</span><br></pre></td></tr></table></figure>
+<h2 id="3．將node-modules-aspnet-signalr-dist-browser-signalr-js-複製到wwwroot-lib專案資料夾建立signalr-js檔案中"><a href="#3．將node-modules-aspnet-signalr-dist-browser-signalr-js-複製到wwwroot-lib專案資料夾建立signalr-js檔案中" class="headerlink" title="3．將node_modules\ @aspnet\signalr\dist\browser\signalr.js 複製到wwwroot/lib專案資料夾建立signalr.js檔案中"></a>3．將node_modules\ @aspnet\signalr\dist\browser\signalr.js 複製到wwwroot/lib專案資料夾建立signalr.js檔案中</h2><h2 id="4．根目錄建立Hubs資料夾，並新增ChatClass-cs"><a href="#4．根目錄建立Hubs資料夾，並新增ChatClass-cs" class="headerlink" title="4．根目錄建立Hubs資料夾，並新增ChatClass.cs"></a>4．根目錄建立Hubs資料夾，並新增ChatClass.cs</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChatClass</span> : <span class="title">Hub</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> message</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">await</span> Clients.All.SendAsync(<span class="string">"ReceiveMessage"</span>, user, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5．開啟startup-cs"><a href="#5．開啟startup-cs" class="headerlink" title="5．開啟startup.cs"></a>5．開啟startup.cs</h2><h5 id="在ConfigureServices-方法加入"><a href="#在ConfigureServices-方法加入" class="headerlink" title="在ConfigureServices()方法加入"></a>在ConfigureServices()方法加入</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">services.AddSignalR();</span><br></pre></td></tr></table></figure>
+<h5 id="Configure-方法裡加入"><a href="#Configure-方法裡加入" class="headerlink" title="Configure()方法裡加入"></a>Configure()方法裡加入</h5><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">app.UseSignalR(routes =&gt; </span><br><span class="line">&#123;</span><br><span class="line">      routes.MapHub&lt;ChatHub&gt;(<span class="string">"/chathub"</span>);  <span class="comment">//chathub自行定義</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/25/untitled-1527416368780-1/" data-id="cjhooww870003d4vjvhmspoam" class="article-share-link">Share</a>
       
       
     </footer>
@@ -143,7 +184,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415701316-1/" data-id="cjhoo7m0r00023kvjogo3ro66" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415701316-1/" data-id="cjhooww830002d4vjzd089uvl" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +224,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415029756/" data-id="cjhoo7m0800003kvj22b3927h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415029756/" data-id="cjhooww7n0000d4vjefx30edg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -225,6 +266,10 @@
         
           <li>
             <a href="/2018/05/26/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2018/05/25/untitled-1527416368780-1/">Asp.Net Core 2 簡易 SignalR with Visual Studio (Visual Studio Code 適用)</a>
           </li>
         
           <li>
