@@ -5,18 +5,18 @@
   
 
   
-  <title>Asp.Net Core2 webapi Database First (MSSQL) with Visual Studio Code | ALi.CodingLife</title>
+  <title>Asp.Net Core2 webapi Code First (MSSQL) with Visual Studio Code | ALi.CodingLife</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="1．開啟你的終端機123$ dotnet new webapi$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer$ dotnet add package Microsoft.EntityFrameworkCore.Design 2．檔案.csproj 取代p.s “Microsoft.VisualStudio.Web.CodeG">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Asp.Net Core2 webapi Database First (MSSQL) with Visual Studio Code">
-<meta property="og:url" content="http://yoursite.com/2018/05/20/untitled-1527415029756/index.html">
+<meta property="og:title" content="Asp.Net Core2 webapi Code First (MSSQL) with Visual Studio Code">
+<meta property="og:url" content="http://yoursite.com/2018/05/20/untitled-1527415701316-1/index.html">
 <meta property="og:site_name" content="ALi.CodingLife">
 <meta property="og:description" content="1．開啟你的終端機123$ dotnet new webapi$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer$ dotnet add package Microsoft.EntityFrameworkCore.Design 2．檔案.csproj 取代p.s “Microsoft.VisualStudio.Web.CodeG">
 <meta property="og:locale" content="zh-tw">
-<meta property="og:updated_time" content="2018-05-27T10:15:19.654Z">
+<meta property="og:updated_time" content="2018-05-27T10:17:21.333Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Asp.Net Core2 webapi Database First (MSSQL) with Visual Studio Code">
+<meta name="twitter:title" content="Asp.Net Core2 webapi Code First (MSSQL) with Visual Studio Code">
 <meta name="twitter:description" content="1．開啟你的終端機123$ dotnet new webapi$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer$ dotnet add package Microsoft.EntityFrameworkCore.Design 2．檔案.csproj 取代p.s “Microsoft.VisualStudio.Web.CodeG">
   
     <link rel="alternate" href="/atom.xml" title="ALi.CodingLife" type="application/atom+xml">
@@ -68,10 +68,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-untitled-1527415029756" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-untitled-1527415701316-1" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/20/untitled-1527415029756/" class="article-date">
-  <time datetime="2018-05-20T09:57:09.000Z" itemprop="datePublished">2018-05-20</time>
+    <a href="/2018/05/20/untitled-1527415701316-1/" class="article-date">
+  <time datetime="2018-05-20T10:08:50.000Z" itemprop="datePublished">2018-05-20</time>
 </a>
     
   </div>
@@ -82,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Asp.Net Core2 webapi Database First (MSSQL) with Visual Studio Code
+      Asp.Net Core2 webapi Code First (MSSQL) with Visual Studio Code
     </h1>
   
 
@@ -92,13 +92,12 @@
       
         <h2 id="1．開啟你的終端機"><a href="#1．開啟你的終端機" class="headerlink" title="1．開啟你的終端機"></a>1．開啟你的終端機</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ dotnet new webapi</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.Design</span><br></pre></td></tr></table></figure>
 <h2 id="2．檔案-csproj-取代"><a href="#2．檔案-csproj-取代" class="headerlink" title="2．檔案.csproj 取代"></a>2．檔案.csproj 取代</h2><h6 id="p-s-“Microsoft-VisualStudio-Web-CodeGeneration-Tools”的版本是多少，”Microsoft-EntityFrameworkCore-Tools-DotNet”的版本就是多少"><a href="#p-s-“Microsoft-VisualStudio-Web-CodeGeneration-Tools”的版本是多少，”Microsoft-EntityFrameworkCore-Tools-DotNet”的版本就是多少" class="headerlink" title="p.s “Microsoft.VisualStudio.Web.CodeGeneration.Tools”的版本是多少，”Microsoft.EntityFrameworkCore.Tools.DotNet”的版本就是多少"></a>p.s “Microsoft.VisualStudio.Web.CodeGeneration.Tools”的版本是多少，”Microsoft.EntityFrameworkCore.Tools.DotNet”的版本就是多少</h6><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;ItemGroup&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.VisualStudio.Web.CodeGeneration.Tools"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.EntityFrameworkCore.Tools.DotNet"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">&lt;/ItemGroup&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="3．終端機輸入："><a href="#3．終端機輸入：" class="headerlink" title="3．終端機輸入："></a>3．終端機輸入：</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ dotnet ef dbcontext scaffold "Server=(你的資料庫連結字串);Database=database;Trusted_Connection=True;MultipleActiveResult</span><br><span class="line">Sets=true;" Microsoft.EntityFrameworkCore.SqlServer -o Model</span><br></pre></td></tr></table></figure>
-<h2 id="4．開啟Model資料夾底下”資料庫context”刪除OnConfiguring-方法並添加下面的代碼："><a href="#4．開啟Model資料夾底下”資料庫context”刪除OnConfiguring-方法並添加下面的代碼：" class="headerlink" title="4．開啟Model資料夾底下”資料庫context”刪除OnConfiguring()方法並添加下面的代碼："></a>4．開啟Model資料夾底下”資料庫context”刪除OnConfiguring()方法並添加下面的代碼：</h2><h6 id="p-s-資料庫Context是自己定義"><a href="#p-s-資料庫Context是自己定義" class="headerlink" title="p.s 資料庫Context是自己定義"></a>p.s 資料庫Context是自己定義</h6><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> 資料庫Context(DbContextOptions&lt;資料庫Context&gt; options) : <span class="keyword">base</span>(options)</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="5．開啟Startup-cs裡面-ConfigureServices-方法加入"><a href="#5．開啟Startup-cs裡面-ConfigureServices-方法加入" class="headerlink" title="5．開啟Startup.cs裡面 ConfigureServices()方法加入"></a>5．開啟Startup.cs裡面 ConfigureServices()方法加入</h2><h6 id="p-s-資料庫Context是自己定義-1"><a href="#p-s-資料庫Context是自己定義-1" class="headerlink" title="p.s 資料庫Context是自己定義"></a>p.s 資料庫Context是自己定義</h6><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">string connection = @"Server=伺服器名稱;Database=你要建立的資料庫;Trusted_Connection=True;MultipleActiveResultSets=true;";</span><br><span class="line">services.AddDbContext&lt;資料庫Context&gt;(options =&gt; options.UseSqlServer(connection));</span><br></pre></td></tr></table></figure>
+<h2 id="3．建立model資料夾以及資料模型"><a href="#3．建立model資料夾以及資料模型" class="headerlink" title="3．建立model資料夾以及資料模型"></a>3．建立model資料夾以及資料模型</h2><h2 id="4．開啟startup-cs裡面-ConfigureServices-方法加入"><a href="#4．開啟startup-cs裡面-ConfigureServices-方法加入" class="headerlink" title="4．開啟startup.cs裡面 ConfigureServices()方法加入"></a>4．開啟startup.cs裡面 ConfigureServices()方法加入</h2><h6 id="p-s-資料庫Context是自己定義"><a href="#p-s-資料庫Context是自己定義" class="headerlink" title="p.s 資料庫Context是自己定義"></a>p.s 資料庫Context是自己定義</h6><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">string</span> connection = <span class="string">@"Server=你的資料庫伺服器名稱;Database=你要建立的資料庫;Trusted_Connection=True;MultipleActiveResultSets=true;"</span>;</span><br><span class="line">            services.AddDbContext&lt;EmployeeContext&gt;(options =&gt; options.UseSqlServer(connection));</span><br><span class="line">services.AddDbContext&lt;資料庫Context&gt;(options =&gt; options.UseSqlServer(connection));</span><br></pre></td></tr></table></figure>
+<h2 id="5．在終端機輸入："><a href="#5．在終端機輸入：" class="headerlink" title="5．在終端機輸入："></a>5．在終端機輸入：</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ dotnet ef migrations add InitialCreate(ex:CreateMemberTable)</span><br><span class="line">$ dotnet ef database update</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415029756/" data-id="cjhoo7m0800003kvj22b3927h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/05/20/untitled-1527415701316-1/" data-id="cjhoo7m0r00023kvjogo3ro66" class="article-share-link">Share</a>
       
       
     </footer>
@@ -107,15 +106,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/05/20/untitled-1527415701316-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/26/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Asp.Net Core2 webapi Code First (MSSQL) with Visual Studio Code
+          Hello World
         
       </div>
     </a>
   
+  
+    <a href="/2018/05/20/untitled-1527415029756/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Asp.Net Core2 webapi Database First (MSSQL) with Visual Studio Code</div>
+    </a>
   
 </nav>
 
