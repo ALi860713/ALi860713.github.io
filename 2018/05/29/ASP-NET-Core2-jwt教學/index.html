@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        ASP.NET Core2 簡易 SignalR with Visual Studio &amp; Visual Studio Code｜ALi&#39;s blog
+        ASP.NET Core2 JWT教學｜ALi&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://haojen.github.io/2018/05/25/Asp-Net-Core-2-簡易-SignalR-with-Visual-Studio-Visual-Studio-Code/">
+    <link rel="canonical" href="http://haojen.github.io/2018/05/29/ASP-NET-Core2-jwt教學/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -155,12 +155,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>ASP.NET Core2 簡易 SignalR with Visual Studio &amp; Visual Studio Code</h1>
+                    <h1>ASP.NET Core2 JWT教學</h1>
                     
                     <span class="meta">
                          作者 ALi
                         <span>
-                          日期 2018-05-25
+                          日期 2018-05-29
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -175,7 +175,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            ASP.NET Core2 簡易 SignalR with Visual Studio & Visual Studio Code
+            ASP.NET Core2 JWT教學
         </span>
     </div>
 </header>
@@ -186,31 +186,22 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-9 col-sm-9 post-container">
-                <blockquote>
-<p>SignalR，全稱Microsoft ASP.NET SignalR，是一個使用 C#所寫成的伺服器端應用程式稱呼，2012年由微軟所開發。以「定時事件觸發，非同步輸入輸出」為其主要理念。</p>
+                <h2 id="一．新增一個專案"><a href="#一．新增一個專案" class="headerlink" title="一．新增一個專案"></a>一．新增一個專案</h2><blockquote>
+<p>開啟終端機，並下指令<br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet new webapi</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.Design</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<blockquote>
-<p>SignalR是一套可以幫助你輕鬆實現Real-Time Web的ASP.NET Library<br>有許多應用 像是即時通訊</p>
+<h2 id="二．新增json物件至appsettings-json"><a href="#二．新增json物件至appsettings-json" class="headerlink" title="二．新增json物件至appsettings.json"></a>二．新增json物件至appsettings.json</h2><blockquote>
+<p>至<code>appsettings.json</code>裡新增以下字串<br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"Jwt"</span>: &#123;</span><br><span class="line">    <span class="string">"Key"</span>: <span class="string">"This is JWT test For ALi"</span>,</span><br><span class="line">    <span class="string">"Issuer"</span>: <span class="string">"http://localhost:5000/"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-<blockquote>
+<h2 id="三．開啟Startup-cs"><a href="#三．開啟Startup-cs" class="headerlink" title="三．開啟Startup.cs"></a>三．開啟Startup.cs</h2><h6 id="ConfigureServices-方法裡面加入"><a href="#ConfigureServices-方法裡面加入" class="headerlink" title="ConfigureServices()方法裡面加入"></a>ConfigureServices()方法裡面加入</h6><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Startup</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Startup</span>(<span class="params">IConfiguration configuration</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Configuration = configuration;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// This method gets called by the runtime. Use this method to add services to the container.</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConfigureServices</span>(<span class="params">IServiceCollection services</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)</span><br><span class="line">         AddJwtBearer(options =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            options.TokenValidationParameters = <span class="keyword">new</span> TokenValidationParameters</span><br><span class="line">            &#123;</span><br><span class="line">                ValidateIssuer = <span class="literal">true</span>,</span><br><span class="line">                ValidateAudience = <span class="literal">true</span>,</span><br><span class="line">                ValidateLifetime = <span class="literal">true</span>,</span><br><span class="line">                ValidateIssuerSigningKey = <span class="literal">true</span>,</span><br><span class="line">                ValidIssuer = Configuration[<span class="string">"Jwt:Issuer"</span>],</span><br><span class="line">                ValidAudience = Configuration[<span class="string">"Jwt:Issuer"</span>],</span><br><span class="line">                IssuerSigningKey = <span class="keyword">new</span> SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration[<span class="string">"Jwt:Key"</span>]))</span><br><span class="line">            &#125;;</span><br><span class="line">       &#125;);</span><br><span class="line">       <span class="keyword">string</span> connection = <span class="string">@"Server=DESKTOP-MGPGRE3\SQLEXPRESS;Database=Employee;Trusted_Connection=True;MultipleActiveResultSets=true;"</span>;</span><br><span class="line">        services.AddDbContext&lt;EmployeeContext&gt;(options =&gt; options.UseSqlServer(connection));</span><br><span class="line">        services.AddMvc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>請先安裝：</li>
-<li>Visual Studio or Visual Studio Code</li>
+<li><code>驗證創建該令牌的服務器（ValidateIssuer = true）;</code></li>
+<li><code>確保令牌的接收者有權接收它（ValidateAudience = true）;</code></li>
+<li><code>檢查令牌是否過期以及簽發者的簽名密鑰是否有效（ValidateLifetime = true）;</code></li>
+<li>Configuration[“Jwt:Key”] 即為<code>appsettings.json</code>裡設定的”Jwt”</li>
 </ul>
-</blockquote>
-<p><img src="https://i.imgur.com/fqPilxJ.png" alt="Imgur"></p>
+<h4 id="再來，為了於應用程序中使用認證服務，因此須至Configure中調用"><a href="#再來，為了於應用程序中使用認證服務，因此須至Configure中調用" class="headerlink" title="再來，為了於應用程序中使用認證服務，因此須至Configure中調用"></a>再來，為了於應用程序中使用認證服務，因此須至Configure中調用</h4><p><code>app.UseAuthentication()</code><br><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Configure</span>(<span class="params">IApplicationBuilder app, IHostingEnvironment env</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (env.IsDevelopment())</span><br><span class="line">    &#123;</span><br><span class="line">        app.UseDeveloperExceptionPage();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    app.UseAuthentication(); <span class="comment">//加入此行</span></span><br><span class="line">    </span><br><span class="line">    app.UseMvc();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<h5 id="今天，我們就來時做一個簡易版的SignalR吧！"><a href="#今天，我們就來時做一個簡易版的SignalR吧！" class="headerlink" title="今天，我們就來時做一個簡易版的SignalR吧！"></a>今天，我們就來時做一個簡易版的SignalR吧！</h5></blockquote>
-<h2 id="一．開啟你的NuGet-並安裝套件-VSCode就開終端機"><a href="#一．開啟你的NuGet-並安裝套件-VSCode就開終端機" class="headerlink" title="一．開啟你的NuGet 並安裝套件 ( VSCode就開終端機 )"></a>一．開啟你的NuGet 並安裝套件 ( VSCode就開終端機 )</h2><h6 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio"></a>Visual Studio</h6><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ Install-Package Microsoft.AspNetCore.SignalR -Version 1.0.0-preview2-final</span><br></pre></td></tr></table></figure>
-<h6 id="Visual-Studio-Code"><a href="#Visual-Studio-Code" class="headerlink" title="Visual Studio Code"></a>Visual Studio Code</h6><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet add package Microsoft.AspNetCore.SignalR --version <span class="number">1</span>.<span class="number">0</span>.<span class="number">0</span>-rc1-final</span><br></pre></td></tr></table></figure>
-<h2 id="二．更換到專案資料夾"><a href="#二．更換到專案資料夾" class="headerlink" title="二．更換到專案資料夾"></a>二．更換到專案資料夾</h2><h5 id="cd到專案資料夾下，並下指令"><a href="#cd到專案資料夾下，並下指令" class="headerlink" title="cd到專案資料夾下，並下指令"></a>cd到專案資料夾下，並下指令</h5><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">npm init -y   //建立預設package.json</span><br><span class="line">npm install @aspnet/signalr  //安裝軟件</span><br></pre></td></tr></table></figure>
-<h2 id="三．複製檔案"><a href="#三．複製檔案" class="headerlink" title="三．複製檔案"></a>三．複製檔案</h2><p><code>複製 node_modules\ @aspnet\signalr\dist\browser\signalr.js</code><br><code>到 wwwroot/lib專案資料夾裡貼上</code></p>
-<h2 id="四．根目錄建立Hubs資料夾，並新增ChatClass-cs"><a href="#四．根目錄建立Hubs資料夾，並新增ChatClass-cs" class="headerlink" title="四．根目錄建立Hubs資料夾，並新增ChatClass.cs"></a>四．根目錄建立Hubs資料夾，並新增ChatClass.cs</h2><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ChatClass</span> : <span class="title">Hub</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">SendMessage</span>(<span class="params"><span class="keyword">string</span> user, <span class="keyword">string</span> message</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">await</span> Clients.All.SendAsync(<span class="string">"ReceiveMessage"</span>, user, message);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="五．開啟startup-cs"><a href="#五．開啟startup-cs" class="headerlink" title="五．開啟startup.cs"></a>五．開啟startup.cs</h2><h5 id="在ConfigureServices-方法加入"><a href="#在ConfigureServices-方法加入" class="headerlink" title="在ConfigureServices()方法加入"></a>在ConfigureServices()方法加入</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">services.AddSignalR();</span><br></pre></td></tr></table></figure>
-<h5 id="Configure-方法裡加入"><a href="#Configure-方法裡加入" class="headerlink" title="Configure()方法裡加入"></a>Configure()方法裡加入</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">app.UseSignalR(routes =&gt; </span><br><span class="line">&#123;</span><br><span class="line">      routes.MapHub&lt;ChatHub&gt;(<span class="string">"/chathub"</span>);  <span class="comment">//chathub自行定義</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>參考來源<br><a href="https://zh.wikipedia.org/wiki/SignalR" target="_blank" rel="noopener">維基百科-SignalR</a><br><a href="https://blog.johnwu.cc/article/ironman-day22-asp-net-core-signalr.html" target="_blank" rel="noopener">[鐵人賽 Day22] ASP.NET Core 2 系列 - SignalR
-</a><br><a href="https://docs.microsoft.com/zh-tw/aspnet/core/signalr/get-started?view=aspnetcore-2.1&amp;tabs=visual-studio" target="_blank" rel="noopener">Microsoft-開始使用 ASP.NET Core 的 SignalR</a></p>
+<p>參考來源<br><a href="https://auth0.com/blog/securing-asp-dot-net-core-2-applications-with-jwts/" target="_blank" rel="noopener">使用JWTs保護ASP.NET Core 2.0應用程序</a><br><a href="https://csharpkh.blogspot.tw/2018/04/jwt-json-web-token-aspnet-core.html" target="_blank" rel="noopener">JWT JSON Web Token 使用 ASP.NET Core 2.0 Web API 的逐步練習教學與各種情境測試</a></p>
 </blockquote>
 
                 <hr>
@@ -218,15 +209,10 @@
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2018/05/26/hello-world/" data-toggle="tooltip" data-placement="top"
-                           title="Hello World">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2018/05/20/Asp-Net-Core2-webapi-Code-First-MSSQL-with-Visual-Studio-Code/" data-toggle="tooltip" data-placement="top"
-                           title="ASP.NET Core2 webapi Code First (MSSQL) with Visual Studio Code">Next Post &rarr;</a>
+                        <a href="/2018/05/26/hello-world/" data-toggle="tooltip" data-placement="top"
+                           title="Hello World">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -248,7 +234,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#今天，我們就來時做一個簡易版的SignalR吧！"><span class="toc-text">今天，我們就來時做一個簡易版的SignalR吧！</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一．開啟你的NuGet-並安裝套件-VSCode就開終端機"><span class="toc-text">一．開啟你的NuGet 並安裝套件 ( VSCode就開終端機 )</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Visual-Studio"><span class="toc-text">Visual Studio</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#Visual-Studio-Code"><span class="toc-text">Visual Studio Code</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二．更換到專案資料夾"><span class="toc-text">二．更換到專案資料夾</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#cd到專案資料夾下，並下指令"><span class="toc-text">cd到專案資料夾下，並下指令</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三．複製檔案"><span class="toc-text">三．複製檔案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四．根目錄建立Hubs資料夾，並新增ChatClass-cs"><span class="toc-text">四．根目錄建立Hubs資料夾，並新增ChatClass.cs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五．開啟startup-cs"><span class="toc-text">五．開啟startup.cs</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#在ConfigureServices-方法加入"><span class="toc-text">在ConfigureServices()方法加入</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Configure-方法裡加入"><span class="toc-text">Configure()方法裡加入</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一．新增一個專案"><span class="toc-text">一．新增一個專案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二．新增json物件至appsettings-json"><span class="toc-text">二．新增json物件至appsettings.json</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三．開啟Startup-cs"><span class="toc-text">三．開啟Startup.cs</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ConfigureServices-方法裡面加入"><span class="toc-text">ConfigureServices()方法裡面加入</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再來，為了於應用程序中使用認證服務，因此須至Configure中調用"><span class="toc-text">再來，為了於應用程序中使用認證服務，因此須至Configure中調用</span></a></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>
@@ -291,8 +277,8 @@
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES * * */
     var disqus_shortname = "ali860713";
-    var disqus_identifier = "http://haojen.github.io/2018/05/25/Asp-Net-Core-2-簡易-SignalR-with-Visual-Studio-Visual-Studio-Code/";
-    var disqus_url = "http://haojen.github.io/2018/05/25/Asp-Net-Core-2-簡易-SignalR-with-Visual-Studio-Visual-Studio-Code/";
+    var disqus_identifier = "http://haojen.github.io/2018/05/29/ASP-NET-Core2-jwt教學/";
+    var disqus_url = "http://haojen.github.io/2018/05/29/ASP-NET-Core2-jwt教學/";
 
     (function () {
         var dsq = document.createElement('script');
