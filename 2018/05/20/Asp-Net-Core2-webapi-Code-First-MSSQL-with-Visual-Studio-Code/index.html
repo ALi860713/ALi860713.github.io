@@ -189,25 +189,50 @@
                 <blockquote>
 <p>記上一篇Database First後，這次要使用Code First去連結資料庫，至於兩者差異在於</p>
 </blockquote>
-<h2 id="一．開啟你的終端機"><a href="#一．開啟你的終端機" class="headerlink" title="一．開啟你的終端機"></a>一．開啟你的終端機</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet new webapi</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer</span><br><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.Design</span><br></pre></td></tr></table></figure>
-<p><strong>這邊跟 Database First 那篇一樣</strong><br><strong>Microsoft.EntityFrameworkCore.Design 套件為 EF Core 的 .NET Core CLI 工具</strong><br><strong> 請務必安裝 </strong></p>
-<h2 id="二．取代-專案-csproj"><a href="#二．取代-專案-csproj" class="headerlink" title="二．取代 專案.csproj"></a>二．取代 專案.csproj</h2><h5 id="新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目"><a href="#新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目" class="headerlink" title="新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目"></a>新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">&lt;ItemGroup&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.VisualStudio.Web.CodeGeneration.Tools"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.EntityFrameworkCore.Tools.DotNet"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">&lt;/ItemGroup&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>建立專案前，先確認一下工具及環境：</p>
+<ul>
+<li>Visual Studio Code (<a href="https://code.visualstudio.com/" target="_blank" rel="noopener">下載頁面</a>)</li>
+<li>Dotnet Core SDK 最新版 (<a href="https://www.microsoft.com/net/download/windows" target="_blank" rel="noopener">下載頁面</a>)</li>
+</ul>
+</blockquote>
+<h2 id="一．建立一個資料夾"><a href="#一．建立一個資料夾" class="headerlink" title="一．建立一個資料夾"></a>一．建立一個資料夾</h2><blockquote>
+<p>首先，在任一目錄底下建立一個資料夾，接著至VSCode左上角選擇<br>檔案&gt;開啟資料夾<br>後選擇資料夾，如下圖</p>
+</blockquote>
+<p><img src="https://i.imgur.com/KReJGWX.jpg" alt="Imgur"></p>
+<h2 id="二．開啟終端機"><a href="#二．開啟終端機" class="headerlink" title="二．開啟終端機"></a>二．開啟終端機</h2><blockquote>
+<p>接著至VSCode左上角<br>檢視&gt;整合式終端機 or 或下快捷鍵Ctrl + `</p>
+</blockquote>
+<p><code>進入終端機後下指令</code></p>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet new webapi</span><br></pre></td></tr></table></figure>
+<p><code>在 .NET Core 應用程式中安裝 SQL Server 提供者</code><br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.SqlServer</span><br></pre></td></tr></table></figure></p>
+<p><code>接著安裝 EF Core 的 .NET Core CLI 工具</code><br><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet add package Microsoft.EntityFrameworkCore.Design</span><br></pre></td></tr></table></figure></p>
+<h2 id="三．取代-專案-csproj"><a href="#三．取代-專案-csproj" class="headerlink" title="三．取代 專案.csproj"></a>三．取代 專案.csproj</h2><h5 id="新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目"><a href="#新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目" class="headerlink" title="新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目"></a>新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目</h5><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">&lt;ItemGroup&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.VisualStudio.Web.CodeGeneration.Tools"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">   &lt;DotNetCliToolReference Include=<span class="string">"Microsoft.EntityFrameworkCore.Tools.DotNet"</span> Version=<span class="string">"2.0.3"</span> /&gt;</span><br><span class="line">&lt;/ItemGroup&gt;</span><br></pre></td></tr></table></figure>
 <p><code>p.s &quot;Microsoft.VisualStudio.Web.CodeGeneration.Tools&quot;的版本是多少，&quot;Microsoft.EntityFrameworkCore.Tools.DotNet&quot;的版本就是多少</code></p>
+<p><code>p.s &quot;Microsoft.VisualStudio.Web.CodeGeneration.Tools&quot;的版本是多少，&quot;Microsoft.EntityFrameworkCore.Tools.DotNet&quot;的版本就是多少</code></p>
+<blockquote>
+<p>接下來要做的很重要，至終端機下指令</p>
+</blockquote>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet <span class="built_in">restore</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>如此一來，你應該是可以正常的使用<code>dotnet ef</code>指令了~</p>
 </blockquote>
-<h2 id="三．建立model資料夾以及資料模型"><a href="#三．建立model資料夾以及資料模型" class="headerlink" title="三．建立model資料夾以及資料模型"></a>三．建立model資料夾以及資料模型</h2><blockquote>
+<h2 id="四．建立model資料夾以及資料模型"><a href="#四．建立model資料夾以及資料模型" class="headerlink" title="四．建立model資料夾以及資料模型"></a>四．建立model資料夾以及資料模型</h2><blockquote>
 <p>檔名為EmployeeContext.cs</p>
 </blockquote>
 <figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Microsoft.EntityFrameworkCore;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">dotnetmssql.Model</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">EmployeeContext</span> : <span class="title">DbContext</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">EmployeeContext</span>(<span class="params">DbContextOptions&lt;EmployeeContext&gt; options</span>) : <span class="title">base</span>(<span class="params">options</span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">public</span> DbSet&lt;Employee&gt; Employees &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> DbSet&lt;Student&gt; Students &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">        <span class="keyword">public</span> DbSet&lt;Member&gt; Members &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="四．開啟Startup-cs"><a href="#四．開啟Startup-cs" class="headerlink" title="四．開啟Startup.cs"></a>四．開啟Startup.cs</h2><h6 id="ConfigureServices-方法裡面加入"><a href="#ConfigureServices-方法裡面加入" class="headerlink" title="ConfigureServices()方法裡面加入"></a>ConfigureServices()方法裡面加入</h6><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> connection = <span class="string">@"Server=你的資料庫伺服器名稱;Database=你要建立的資料庫;Trusted_Connection=True;MultipleActiveResultSets=true;"</span>;</span><br><span class="line">            services.AddDbContext&lt;EmployeeContext&gt;(options =&gt; options.UseSqlServer(connection));</span><br><span class="line">services.AddDbContext&lt;資料庫Context&gt;(options =&gt; options.UseSqlServer(connection));</span><br></pre></td></tr></table></figure>
-<h6 id="p-s-資料庫Context是自己定義"><a href="#p-s-資料庫Context是自己定義" class="headerlink" title="p.s 資料庫Context是自己定義"></a>p.s 資料庫Context是自己定義</h6><h2 id="五．在終端機輸入："><a href="#五．在終端機輸入：" class="headerlink" title="五．在終端機輸入："></a>五．在終端機輸入：</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet ef migrations add InitialCreate(ex:CreateMemberTable)</span><br><span class="line">$ dotnet ef database update</span><br></pre></td></tr></table></figure>
-<p><code>$ dotnet ef migrations add InitialCreateTable</code><br><code>$ dotnet ef database update 將移轉套用至資料庫</code></p>
+<p>應用程式主要透過 DbContext 物件與資料庫進行連線溝通，對資料庫進行查詢、新增、修改等動作。<br>繼承 DbContext 使之有連線資料庫等能力</p>
+<h2 id="五．開啟Startup-cs"><a href="#五．開啟Startup-cs" class="headerlink" title="五．開啟Startup.cs"></a>五．開啟Startup.cs</h2><h6 id="ConfigureServices-方法裡面加入"><a href="#ConfigureServices-方法裡面加入" class="headerlink" title="ConfigureServices()方法裡面加入"></a>ConfigureServices()方法裡面加入</h6><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">string</span> connection = <span class="string">@"Server=你的資料庫伺服器名稱;Database=你要建立的資料庫;Trusted_Connection=True;MultipleActiveResultSets=true;"</span>;</span><br><span class="line">            services.AddDbContext&lt;EmployeeContext&gt;(options =&gt; options.UseSqlServer(connection));</span><br><span class="line">services.AddDbContext&lt;資料庫Context&gt;(options =&gt; options.UseSqlServer(connection));</span><br></pre></td></tr></table></figure>
+<p><code>p.s 資料庫Context是自己定義</code></p>
+<h2 id="六．在終端機輸入："><a href="#六．在終端機輸入：" class="headerlink" title="六．在終端機輸入："></a>六．在終端機輸入：</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet ef migrations add InitialCreateTable</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>*dotnet ef migrations remove 會刪除移轉</p>
+<p>將移轉套用至資料庫</p>
 </blockquote>
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">$ dotnet ef database update</span><br></pre></td></tr></table></figure>
+<p><code>*dotnet ef migrations remove 會刪除移轉</code></p>
+<p><code></code></p>
 <blockquote>
-<p>參考來源<br><a href="https://docs.microsoft.com/zh-tw/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0" target="_blank" rel="noopener">ASP.NET Core MVC 與 EF Core - 移轉 - 4/10</a><br><a href="https://docs.microsoft.com/zh-tw/ef/core/miscellaneous/cli/dotnet" target="_blank" rel="noopener">EF 核心.NET 命令列工具</a><br><a href="https://docs.microsoft.com/zh-tw/aspnet/core/signalr/get-started?view=aspnetcore-2.1&amp;tabs=visual-studio" target="_blank" rel="noopener">Microsoft-開始使用 ASP.NET Core 的 SignalR</a></p>
+<p>參考來源<br><a href="https://docs.microsoft.com/zh-tw/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0" target="_blank" rel="noopener">ASP.NET Core MVC 與 EF Core - 移轉 - 4/10</a><br><a href="https://docs.microsoft.com/zh-tw/ef/core/miscellaneous/cli/dotnet" target="_blank" rel="noopener">EF 核心.NET 命令列工具</a><br><a href="https://poychang.github.io/asp-net-core-webapi-with-entity-framework-core/" target="_blank" rel="noopener">在 ASP.NET Core WebAPI 使用 Entity Framework Core 存取資料庫</a></p>
 </blockquote>
 
                 <hr>
@@ -245,7 +270,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一．開啟你的終端機"><span class="toc-text">一．開啟你的終端機</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二．取代-專案-csproj"><span class="toc-text">二．取代 專案.csproj</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目"><span class="toc-text">新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三．建立model資料夾以及資料模型"><span class="toc-text">三．建立model資料夾以及資料模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四．開啟Startup-cs"><span class="toc-text">四．開啟Startup.cs</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ConfigureServices-方法裡面加入"><span class="toc-text">ConfigureServices()方法裡面加入</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#p-s-資料庫Context是自己定義"><span class="toc-text">p.s 資料庫Context是自己定義</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五．在終端機輸入："><span class="toc-text">五．在終端機輸入：</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一．建立一個資料夾"><span class="toc-text">一．建立一個資料夾</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二．開啟終端機"><span class="toc-text">二．開啟終端機</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三．取代-專案-csproj"><span class="toc-text">三．取代 專案.csproj</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#新增-Microsoft-EntityFrameworkCore-Tools-DotNet-為-DotNetCliToolReference-項目"><span class="toc-text">新增 Microsoft.EntityFrameworkCore.Tools.DotNet 為 DotNetCliToolReference 項目</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#四．建立model資料夾以及資料模型"><span class="toc-text">四．建立model資料夾以及資料模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#五．開啟Startup-cs"><span class="toc-text">五．開啟Startup.cs</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ConfigureServices-方法裡面加入"><span class="toc-text">ConfigureServices()方法裡面加入</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#六．在終端機輸入："><span class="toc-text">六．在終端機輸入：</span></a></li></ol>
                 </div>
             </div>
         </div>

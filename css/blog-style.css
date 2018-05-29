@@ -1216,4 +1216,8 @@ img::-moz-selection {
     width:0;
 }
 
+.work-experience .body-section {
+    padding-left: 0px;
+}
+
 
